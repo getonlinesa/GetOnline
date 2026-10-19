@@ -164,26 +164,7 @@ html[data-special="off"] .only-special{display:none}
 .site .tag.fast{background:#dff3ee;color:#0f6b5a}
 .site p{margin:0 0 14px;color:var(--muted)}
 .site .acts{display:flex;flex-wrap:wrap;gap:10px}
-.shot{position:relative}
-.shot.zoomable .strip img{cursor:zoom-in}
-.zoombtn{position:absolute;right:12px;bottom:12px;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border:0;border-radius:999px;background:rgba(16,36,58,.92);color:#fff;font:700 14px/1 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28)}
-.zoombtn:hover,.zoombtn:focus-visible{background:var(--accent)}
-.zoombtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.lb{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;background:#0a1621}
-.lb.open{display:flex}
-.lb-bar{flex:none;display:flex;align-items:center;gap:12px;padding:10px 14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.16)}
-.lb-title{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-@media(max-width:600px){.lb-title{white-space:normal;font-size:14px;line-height:1.2}.lb-bar .btn.lb-go{padding:0 12px}}
-.lb-title small{display:none;margin-left:10px;font-weight:400;opacity:.7}
-@media(min-width:900px){.lb-title small{display:inline}}
-.lb-bar .btn.lb-go{min-height:40px;padding:0 16px;font-size:14px;background:var(--accent);border-color:var(--accent);color:#fff;white-space:nowrap}
-.lb-bar .btn.lb-go:hover{background:#9a3412;border-color:#9a3412}
-.lb-bar .btn.lb-go[hidden]{display:none}
-.lb-close{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.7);background:transparent;color:#fff;font-size:22px;line-height:1;cursor:pointer}
-.lb-close:hover,.lb-close:focus-visible{background:#fff;color:var(--ink)}
-.lb-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;cursor:zoom-out}
-.lb-body img{display:block;width:100%;max-width:1440px;height:auto;margin:0 auto;cursor:default;background:#fff}
-body.lb-lock{overflow:hidden}
+.shot.link .strip img{cursor:pointer}
 
 /* order */
 .order{display:grid;gap:26px}
@@ -563,12 +544,12 @@ var CONFIG = {
   },
   // Portfolio cards. Add screenshots to /assets and fill in url when the live site is public.
   portfolio: [
-    /* full = tall screenshot of the whole page, opens full screen when the card image is clicked */
-    { name: "Voorbeeld Loodgieters", url: "voorbeeld/", imgs: ["assets/voorbeeld-1.jpg"], full: "assets/voorbeeld-loodgieters-volledig.jpg", kind: "fast",
+    /* url = opens when the card image or the button is clicked */
+    { name: "Voorbeeld Loodgieters", url: "voorbeeld/", imgs: ["assets/voorbeeld-1.jpg"], kind: "fast",
       tagAf: "48-uur-voorbeeld", tagEn: "48-hour example",
       btnAf: "Sien die voorbeeld-webwerf", btnEn: "See the example website",
-      af: "Volledige voorbeeld vir ’n uitgedinkte loodgieter, gebou soos ’n Starter- of Standard-webwerf lyk. Klik op die prent om dit volskerm te sien.",
-      en: "A complete example for a made-up plumber, built the way a Starter or Standard website looks. Click the image to see it full screen." },
+      af: "Volledige voorbeeld vir ’n uitgedinkte loodgieter, gebou soos ’n Starter- of Standard-webwerf lyk. Klik om dit in ’n nuwe blad oop te maak.",
+      en: "A complete example for a made-up plumber, built the way a Starter or Standard website looks. Click to open it in a new page." },
     { name: "Mountain View Village", kind: "custom", tagAf: "Gebou in ±1 week", tagEn: "Built in about 1 week", url: "https://mountainview-village.co.za", imgs: ["assets/mountain-view-village-1.jpg", "assets/mountain-view-village-2.jpg"],
       af: "Interaktiewe webwerf vir ’n eiendomsontwikkeling in Robertson.",
       en: "Interactive website for a property development in Robertson." },
@@ -660,61 +641,12 @@ var CONFIG = {
       a.appendChild(la); a.appendChild(le);
       acts.appendChild(a);
     }
-    if(p.full){
-      shot.className = "shot zoomable";
-      var zb = document.createElement("button"); zb.type = "button"; zb.className = "zoombtn";
-      zb.innerHTML = "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7'/></svg><span class='af'>Vergroot</span><span class='en'>Enlarge</span>";
-      zb.setAttribute("aria-haspopup", "dialog");
-      zb.addEventListener("click", function(e){ e.stopPropagation(); openLB(p, zb); });
-      strip.addEventListener("click", function(){ openLB(p, zb); });
-      shot.appendChild(zb);
+    if(p.url){
+      shot.className = "shot link";
+      strip.addEventListener("click", function(){ window.open(p.url, "_blank", "noopener"); });
     }
     if(acts.childNodes.length){ info.appendChild(acts); }
     card.appendChild(chrome); card.appendChild(shot); card.appendChild(info); grid.appendChild(card);
-  });
-
-  /* full-screen viewer for the tall example screenshot */
-  var lb = null, lbOpener = null;
-  function buildLB(){
-    lb = document.createElement("div"); lb.className = "lb"; lb.setAttribute("role", "dialog"); lb.setAttribute("aria-modal", "true");
-    lb.innerHTML =
-      "<div class='lb-bar'>" +
-        "<div class='lb-title'><span class='lb-name'></span><small><span class='af'>Blaai af om die hele bladsy te sien</span><span class='en'>Scroll down to see the whole page</span></small></div>" +
-        "<a class='btn lb-go' target='_blank' rel='noopener'><span class='af'>Maak die webwerf oop</span><span class='en'>Open the website</span></a>" +
-        "<button type='button' class='lb-close'><span aria-hidden='true'>&times;</span></button>" +
-      "</div>" +
-      "<div class='lb-body'><img alt='' decoding='async'></div>";
-    document.body.appendChild(lb);
-    lb.querySelector(".lb-close").addEventListener("click", closeLB);
-    lb.querySelector(".lb-body").addEventListener("click", function(e){ if(e.target === this){ closeLB(); } });
-  }
-  function openLB(p, opener){
-    if(!lb){ buildLB(); }
-    lbOpener = opener;
-    lb.setAttribute("aria-label", p.name);
-    lb.querySelector(".lb-close").setAttribute("aria-label", t("Maak toe", "Close"));
-    lb.querySelector(".lb-name").textContent = p.name;
-    var im = lb.querySelector(".lb-body img"); im.alt = t("Volledige skermfoto van ", "Full screenshot of ") + p.name; im.src = p.full;
-    var go = lb.querySelector(".lb-go"); if(p.url){ go.href = p.url; go.hidden = false; } else { go.hidden = true; }
-    lb.classList.add("open"); document.body.classList.add("lb-lock");
-    lb.querySelector(".lb-body").scrollTop = 0;
-    lb.querySelector(".lb-close").focus();
-  }
-  function closeLB(){
-    if(!lb || !lb.classList.contains("open")){ return; }
-    lb.classList.remove("open"); document.body.classList.remove("lb-lock");
-    if(lbOpener && lbOpener.focus){ lbOpener.focus(); }
-  }
-  document.addEventListener("keydown", function(e){
-    if(!lb || !lb.classList.contains("open")){ return; }
-    if(e.key === "Escape"){ e.preventDefault(); closeLB(); return; }
-    if(e.key === "Tab"){
-      var go = lb.querySelector(".lb-go"), cl = lb.querySelector(".lb-close");
-      var list = go.hidden ? [cl] : [go, cl];
-      var i = list.indexOf(document.activeElement);
-      e.preventDefault();
-      if(e.shiftKey){ list[i <= 0 ? list.length - 1 : i - 1].focus(); } else { list[i === list.length - 1 ? 0 : i + 1].focus(); }
-    }
   });
 
   /* order calculator */
