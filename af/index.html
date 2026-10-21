@@ -172,6 +172,11 @@ legend{font-weight:800;font-size:17px;margin-bottom:10px;padding:0}
 .field label{display:block;font-weight:650;font-size:15px;margin-bottom:5px}
 .field input,.field textarea{width:100%;min-height:48px;border:2px solid var(--line);border-radius:12px;padding:10px 14px;font:inherit;background:#fff;color:var(--ink)}
 .field textarea{min-height:92px;resize:vertical}
+.field .hint{display:block;font-weight:400;font-size:14px;color:var(--muted);margin-top:2px}
+.lbl{display:block;font-weight:650;font-size:15px;margin-bottom:8px}
+.goalbox{margin:2px 0 16px}
+.goals{display:grid;gap:10px 18px}
+@media(min-width:640px){.goals{grid-template-columns:1fr 1fr}}
 .field input[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:var(--bad)}
 .two{display:grid;gap:14px}
 @media(min-width:640px){.two{grid-template-columns:1fr 1fr}}
@@ -444,8 +449,23 @@ footer .name{color:#fff;font-weight:800;font-size:17px;margin-bottom:6px}
             <div class="field"><label for="f_email">E-pos *</label><input id="f_email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
             <div class="field"><label for="f_cell">Selnommer *</label><input id="f_cell" name="cell" type="tel" inputmode="tel" autocomplete="tel" required></div>
           </div>
-          <div class="field"><label for="f_ref">Voorbeeld-verwysing (as ons jou ’n voorbeeld gestuur het)</label><input id="f_ref" name="ref" autocomplete="off"></div>
-          <div class="field"><label for="f_msg">Iets wat ons moet weet? (opsioneel)</label><textarea id="f_msg" name="message"></textarea></div>
+          <div class="field"><label for="f_about">Wat doen jou besigheid, en in watter dorp? *<small class="hint">Bv. loodgieter in Robertson, gastehuis in McGregor, haarsalon in Montagu.</small></label><input id="f_about" name="about" autocomplete="off" required></div>
+          <div class="goalbox">
+            <span class="lbl" id="goalsLbl">Wat moet jou webwerf vir jou doen? (opsioneel)</span>
+            <div class="goals" role="group" aria-labelledby="goalsLbl">
+              <label class="tick"><input type="checkbox" name="goal"><span>Meer bel- en WhatsApp-navrae</span></label>
+              <label class="tick"><input type="checkbox" name="goal"><span>Kwotasie- of navraagvorm</span></label>
+              <label class="tick"><input type="checkbox" name="goal"><span>Ons werk, produkte of dienste wys</span></label>
+              <label class="tick"><input type="checkbox" name="goal"><span>Besprekings neem</span></label>
+              <label class="tick"><input type="checkbox" name="goal"><span>Pryse of ’n spyskaart wys</span></label>
+              <label class="tick"><input type="checkbox" name="goal"><span>Produkte aanlyn verkoop (word apart gekwoteer)</span></label>
+            </div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="f_online">Jou huidige webwerf, Facebook- of Google-blad<small class="hint">Opsioneel. Plak die skakel as jy een het.</small></label><input id="f_online" name="online" autocomplete="url" inputmode="url"></div>
+            <div class="field"><label for="f_domain">Domeinnaam wat jy wil hê<small class="hint">Opsioneel, bv. jouplaas.co.za, of sê as jy reeds een het.</small></label><input id="f_domain" name="domain" autocomplete="off"></div>
+          </div>
+          <input type="hidden" id="f_ref" name="ref">
           <div class="hp" aria-hidden="true"><label>Website <input name="company_website" tabindex="-1" autocomplete="off"></label></div>
         </fieldset>
 
@@ -710,7 +730,10 @@ var CONFIG = {
       t("E-pos: ","Email: ") + v.email,
       t("Sel: ","Cell: ") + v.cell,
       v.ref ? (t("Voorbeeld-verwysing: ","Demo reference: ") + v.ref) : "",
-      v.message ? (t("Boodskap: ","Message: ") + v.message) : "",
+      t("Wat die besigheid doen: ","What the business does: ") + v.about,
+      v.goals.length ? (t("Webwerf moet help met: ","Website should help with: ") + v.goals.join("; ")) : "",
+      v.online ? (t("Huidige webwerf/blad: ","Current website/page: ") + v.online) : "",
+      v.domain ? (t("Domeinnaam: ","Domain name: ") + v.domain) : "",
       t("Ek het die voorwaardes gelees en aanvaar (","I have read and accept the terms (") + when + ")."
     ].filter(Boolean).join("\n");
   }
@@ -727,12 +750,15 @@ var CONFIG = {
     e.preventDefault();
     var o = order();
     var v = { business: $("#f_biz").value.trim(), name: $("#f_name").value.trim(), email: $("#f_email").value.trim(),
-              cell: $("#f_cell").value.trim(), ref: $("#f_ref").value.trim(), message: $("#f_msg").value.trim() };
+              cell: $("#f_cell").value.trim(), ref: $("#f_ref").value.trim(),
+              about: $("#f_about").value.trim(), online: $("#f_online").value.trim(), domain: $("#f_domain").value.trim(),
+              goals: $$("input[name=goal]:checked").map(function(i){ return i.parentNode.textContent.trim(); }) };
     var msgs = [], bad = [];
     if(o.total === 0){ msgs.push(t("Merk ten minste een produk.","Tick at least one product.")); bad.push(el.s); }
     if(el.c.checked && !o.hasSite){ msgs.push(t("Die sorgplan geld saam met ’n webwerf. Kies ’n webwerf of haal die sorgplan af.","The care plan comes with a website. Choose a website or untick the care plan.")); bad.push(el.c); }
     if(!v.business){ msgs.push(t("Vul jou besigheidsnaam in.","Enter your business name.")); bad.push($("#f_biz")); }
     if(!v.name){ msgs.push(t("Vul jou naam in.","Enter your name.")); bad.push($("#f_name")); }
+    if(!v.about){ msgs.push(t("Sê vir ons wat jou besigheid doen en in watter dorp.","Tell us what your business does and in which town.")); bad.push($("#f_about")); }
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email)){ msgs.push(t("Vul ’n geldige e-posadres in.","Enter a valid email address.")); bad.push($("#f_email")); }
     if(v.cell.replace(/\D/g,"").length < 9){ msgs.push(t("Vul ’n geldige selnommer in.","Enter a valid cell number.")); bad.push($("#f_cell")); }
     if(!$("#f_terms").checked){ msgs.push(t("Aanvaar eers die voorwaardes.","Please accept the terms first.")); bad.push($("#f_terms")); }
