@@ -109,11 +109,14 @@ footer a{color:var(--accent);font-weight:700}
 .bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;padding:10px 14px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);z-index:30}
 .bar .btn{flex:1;padding:0 12px}
 @media(min-width:800px){.bar{display:none}body{padding-bottom:0}}
+.wa-float{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.3);z-index:40;text-decoration:none}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+@media(min-width:800px){.wa-float{bottom:calc(20px + env(safe-area-inset-bottom))}}
 </style>
 </head>
 <body>
 
-<div class="banner"><span class="af"><b>VOORBEELD</b> · Webwerf deur Get Online SA vir ’n uitgedinkte besigheid. Die WhatsApp-knoppies hier stuur ’n boodskap aan ons, nie aan ’n loodgieter nie.</span><span class="en"><b>EXAMPLE</b> · Website by Get Online SA for a made-up business. The WhatsApp buttons here message us, not a plumber.</span></div>
+<div class="banner"><span class="af"><b>VOORBEELD</b> · Webwerf deur Get Online SA vir ’n uitgedinkte besigheid. Die WhatsApp- en bel-knoppies hier kontak ons, nie ’n loodgieter nie.</span><span class="en"><b>EXAMPLE</b> · Website by Get Online SA for a made-up business. The WhatsApp and call buttons here contact us, not a plumber.</span></div>
 
 <header class="top">
   <div class="in">
@@ -147,9 +150,9 @@ footer a{color:var(--accent);font-weight:700}
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
           <span class="af">WhatsApp ons</span><span class="en">WhatsApp us</span>
         </a>
-        <a class="btn ghost" href="tel:+27820000000">
+        <a class="btn ghost" href="tel:+27727535744">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          <span class="af">Bel 082 000 0000</span><span class="en">Call 082 000 0000</span>
+          <span class="af">Bel 072 753 5744</span><span class="en">Call 072 753 5744</span>
         </a>
       </div>
     </div>
@@ -306,8 +309,10 @@ footer a{color:var(--accent);font-weight:700}
 
 <div class="bar">
   <a class="btn primary" data-wa="hero" href="#">WhatsApp</a>
-  <a class="btn ghost" href="tel:+27820000000"><span class="af">Bel</span><span class="en">Call</span></a>
+  <a class="btn ghost" href="tel:+27727535744"><span class="af">Bel</span><span class="en">Call</span></a>
 </div>
+
+<a class="wa-float" data-wa="agency" href="#" aria-label="Chat to us on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#25d366" transform="translate(6 6) scale(.5)" d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2z"/></svg></a>
 
 <script>
 (function(){
