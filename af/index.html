@@ -264,8 +264,8 @@ section[id]{scroll-margin-top:72px}
       <a href="#prices">Pryse</a>
       <a href="#work">Voorbeelde</a>
       <a href="#order">Bestel</a>
-      <a href="#faq">Vrae</a>
       <a href="#contact">Kontak</a>
+      <a href="#faq">Vrae</a>
     </nav>
     <div class="right">
       <nav class="lang" aria-label="Taal"><a href="/af/" hreflang="af" lang="af" aria-current="page">AF</a><a href="/" hreflang="en" lang="en">EN</a></nav>
@@ -540,6 +540,31 @@ section[id]{scroll-margin-top:72px}
   </div>
 </section>
 
+<!-- CONTACT -->
+<section class="block" id="contact" style="padding-top:0">
+  <div class="wrap">
+    <h2>Kontak ons</h2>
+    <p class="sub">’n Vraag? Stuur ons ’n boodskap en ons antwoord binne een werksdag. Verkies jy WhatsApp? <a data-wa="question" href="#">Stuur vir ons ’n boodskap op 072&nbsp;753&nbsp;5744</a>.</p>
+    <form class="panel" id="contactForm" novalidate>
+      <div class="err" id="cErr" role="alert" aria-live="assertive"></div>
+      <div class="two">
+        <div class="field"><label for="c_name">Jou naam *</label><input id="c_name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="c_email">E-pos *</label><input id="c_email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
+      </div>
+      <div class="field"><label for="c_cell">Selnommer (opsioneel)</label><input id="c_cell" name="cell" type="tel" inputmode="tel" autocomplete="tel"></div>
+      <div class="field"><label for="c_msg">Jou boodskap *</label><textarea id="c_msg" name="message" required></textarea></div>
+      <div class="hp" aria-hidden="true"><label>Website <input name="company_website" tabindex="-1" autocomplete="off"></label></div>
+      <label class="terms-ok"><input type="checkbox" id="c_ok" required><span>Ek stem in dat Get Online SA my besonderhede mag gebruik om my te antwoord. <a href="#privacy">Privaatheid</a></span></label>
+      <button class="btn primary" type="submit" id="cBtn">Stuur boodskap</button>
+    </form>
+    <div class="sent" id="cSent" tabindex="-1">
+      <h3 id="cSentTitle"></h3>
+      <p id="cSentText"></p>
+      <p id="cSentFallback" hidden><a class="btn ghost" id="cSentMail" href="mailto:letsgo@getonlinesa.co.za">x</a></p>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section class="block" id="faq">
   <div class="wrap">
@@ -599,30 +624,6 @@ section[id]{scroll-margin-top:72px}
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="block" id="contact" style="padding-top:0">
-  <div class="wrap">
-    <h2>Kontak ons</h2>
-    <p class="sub">’n Vraag? Stuur ons ’n boodskap en ons antwoord binne een werksdag. Verkies jy WhatsApp? <a data-wa="question" href="#">Stuur vir ons ’n boodskap op 072&nbsp;753&nbsp;5744</a>.</p>
-    <form class="panel" id="contactForm" novalidate>
-      <div class="err" id="cErr" role="alert" aria-live="assertive"></div>
-      <div class="two">
-        <div class="field"><label for="c_name">Jou naam *</label><input id="c_name" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="c_email">E-pos *</label><input id="c_email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
-      </div>
-      <div class="field"><label for="c_cell">Selnommer (opsioneel)</label><input id="c_cell" name="cell" type="tel" inputmode="tel" autocomplete="tel"></div>
-      <div class="field"><label for="c_msg">Jou boodskap *</label><textarea id="c_msg" name="message" required></textarea></div>
-      <div class="hp" aria-hidden="true"><label>Website <input name="company_website" tabindex="-1" autocomplete="off"></label></div>
-      <label class="terms-ok"><input type="checkbox" id="c_ok" required><span>Ek stem in dat Get Online SA my besonderhede mag gebruik om my te antwoord. <a href="#privacy">Privaatheid</a></span></label>
-      <button class="btn primary" type="submit" id="cBtn">Stuur boodskap</button>
-    </form>
-    <div class="sent" id="cSent" tabindex="-1">
-      <h3 id="cSentTitle"></h3>
-      <p id="cSentText"></p>
-      <p id="cSentFallback" hidden><a class="btn ghost" id="cSentMail" href="mailto:letsgo@getonlinesa.co.za">x</a></p>
-    </div>
-  </div>
-</section>
 </main>
 
 <footer>
