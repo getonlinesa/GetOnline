@@ -13,9 +13,9 @@ window.SITE = {
   facebook: "https://www.facebook.com/profile.php?id=61575269173028",
   instagram: "https://www.instagram.com/mooi_laser_en_estetika",
   tiktok: "", // TODO: add TikTok link (handle seems to be mooi.laserenestetika)
-  // TODO: real opening hours. These are ASSUMED for the demo only. 0 = Sunday.
+  // Opening hours accepted as final by Get Online SA (Mon-Fri 09:00-17:00, Sat 09:00-13:00). 0 = Sunday.
   hours: { 1: ["09:00", "17:00"], 2: ["09:00", "17:00"], 3: ["09:00", "17:00"], 4: ["09:00", "17:00"], 5: ["09:00", "17:00"], 6: ["09:00", "13:00"] },
-  hoursAssumed: true,
+  hoursAssumed: false,
   slotMinutes: 60, // TODO: real treatment durations
   rooms: 1,        // TODO: how many clients can be treated at the same time
   bookingDays: 21,
@@ -49,7 +49,7 @@ window.SITE = {
     { id: "tint", title: "Wenkbrou en wimperkleur", en: "Lash and brow tint",
       items: [["Browtint and shape",190],["Lash tint",120]] }
   ]
-  // TODO: replace with real photos and the real logo from the client (assets/).
+  // Photos and logo in assets/img/ come from the salon's own public Facebook page.
   // TODO: add testimonials only if the client supplies real ones.
 };
 
