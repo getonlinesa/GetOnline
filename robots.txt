@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /demos/
+Disallow: /demo/
 
 Sitemap: https://getonlinesa.co.za/sitemap.xml
