@@ -720,7 +720,10 @@ var REVIEWS = [];
 
   /* portfolio: clicking a card image opens that site in a new tab (the button below it is a normal link) */
   $$(".shot.link .strip").forEach(function(s){
-    s.addEventListener("click", function(){ window.open(s.getAttribute("data-url"), "_blank", "noopener"); });
+    s.addEventListener("click", function(){
+      var card = s.closest(".shot"), u = card && card.getAttribute("data-url");
+      if(u){ window.open(u, "_blank", "noopener"); }
+    });
   });
 
   /* Afrikaans browser on the English page: offer the Afrikaans page (never an automatic redirect) */
